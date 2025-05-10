@@ -1,6 +1,7 @@
 import express from 'express';
 import "dotenv/config";
 import { sequelize } from "./src/models/sequelize.js";
+import router from './src/router/router.js';
 
 
 
@@ -13,6 +14,8 @@ app.use(express.json());
 
 // Servir les fichiers statiques depuis le dossier "public"
 app.use(express.static('public'));
+
+app.use(router);
 
 (async () => {
     try {
