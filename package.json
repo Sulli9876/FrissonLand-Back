@@ -1,0 +1,35 @@
+{
+  "name": "frissonland-back",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "createTable": "psql -U sullivan -d FrissonLand -f data/create_table.sql",
+    "seedDatabase": "psql -U sullivan -d FrissonLand -f data/seed_database.sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sulli9876/FrissonLand-Back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sulli9876/FrissonLand-Back/issues"
+  },
+  "homepage": "https://github.com/Sulli9876/FrissonLand-Back#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "pg": "^8.15.6",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
