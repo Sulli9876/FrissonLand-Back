@@ -1,11 +1,19 @@
 import {Router} from 'express'; 
+import attractionController from "../controllers/attractionController.js";
+import categoryController from "../controllers/categoryController.js";
+import ticketController from '../controllers/ticketController.js';
+import controllerWrapper from "../middlewares/controllerWrapper.js";
+import reviewController from '../controllers/reviewController.js';
 
 
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.send('Hello world')
-})
-
-export default router
+//route d'affichage des attractions
+router.get('/attractions', controllerWrapper(attractionController.getAllAttractions));
+router.get('/attractions/:id', controllerWrapper (attractionController.getOneAttractionById));
+router.get('/categories/:categoryId', controllerWrapper (attractionController.getAttractionsByCategory));
+router.get('/categories', controllerWrapper (categoryController.getAllCategories));
+router.get('/tickets', controllerWrapper(ticketController.getAllTickets));
+router.get('review/:id',controllerWrapper(reviewController.getReviewsByAttractionId));
+export default router;

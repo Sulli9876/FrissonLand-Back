@@ -34,6 +34,21 @@ INSERT INTO "user" ("id", "mail", "first_name", "last_name", "birth_date", "addr
 (9, 'grace.taylor9@example.com', 'Grace', 'Taylor', '1983-03-17', '606 Cherry Street, Springfield, IL', 'password567', 'user'),
 (10, 'hank.moore10@example.com', 'Hank', 'Moore', '1980-10-30', '707 Spruce Way, Springfield, IL', 'password890', 'user');
 
+
+INSERT INTO "review" ("note", "commentaire", "user_id", "attraction_id") VALUES
+(5, 'Incroyable expérience, les zombies étaient très réalistes !', 5, 1),
+(4, 'Super sensations, j''ai adoré.', 6, 1),
+(3, 'Bonne ambiance, mais un peu court.', 7, 2),
+(4, 'Tension palpable tout le long du ride !', 9, 3),
+(2, 'Pas assez de frissons à mon goût.', 10, 3),
+(5, 'Effrayant comme il faut ! Décors top.', 5, 4),
+(3, 'Ambiance réussie mais manque d’interaction.', 8, 6),
+(4, 'Énorme montée d’adrénaline, j''ai crié tout le long !', 6, 7),
+(5, 'Le meilleur manège du parc !', 7, 7),
+(3, 'Sympa, mais un peu court.', 10, 7),
+(4, 'Belle immersion, j''aurais aimé plus d’action.', 5, 8),
+(2, 'Bof, la vue était bien mais l’ambiance pas au niveau.', 9, 9);
+
 --INSERT INTO "book" ("id","reservation_number", "visit_date", "quantity", "ticket_id", "user_id") VALUES
 --  (1,123, '2024-11-15',3, 1 , 1),
 --  (2,124, '2024-11-15',2 ,2 , 2),
