@@ -1,6 +1,6 @@
 BEGIN;
 
-DROP TABLE IF EXISTS "book", "user", "ticket", "attraction", "category";
+DROP TABLE IF EXISTS "review" , "book", "user", "ticket", "attraction", "category";
 
 
 CREATE TABLE "category" (
@@ -65,7 +65,7 @@ CREATE TABLE "review" (
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
   "updated_at" TIMESTAMPTZ DEFAULT now(),
   FOREIGN KEY ("user_id") REFERENCES "user" ("id") ON DELETE CASCADE,
-  FOREIGN KEY ("attraction_id") REFERENCES "attraction" ("id") ON DELETE CASCADE
+  FOREIGN KEY ("attraction_id") REFERENCES "attraction" ("id") ON DELETE CASCADE,
   CONSTRAINT unique_user_attraction_review UNIQUE ("user_id", "attraction_id")
 );
 
