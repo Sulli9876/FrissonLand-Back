@@ -4,6 +4,7 @@ import { Attraction } from "./attraction.js";
 import { Ticket } from "./ticket.js";
 import { User } from "./user.js";
 import { Book } from "./book.js";
+import { Review } from "./review.js";
 
 // Relations entre User et Ticket via Book
     User.belongsToMany(Ticket, {

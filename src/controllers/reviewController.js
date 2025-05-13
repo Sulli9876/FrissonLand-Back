@@ -1,4 +1,4 @@
-import  Review from "../models/review";
+import  Review from "../models/review.js";
 import User from "../models/user.js";
 import Attraction from "../models/attraction.js";
 import HTTPError from "../errors/httpError.js";
