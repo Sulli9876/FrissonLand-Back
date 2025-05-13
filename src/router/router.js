@@ -11,9 +11,9 @@ const router = Router();
 
 //route d'affichage des attractions
 router.get('/attractions', controllerWrapper(attractionController.getAllAttractions));
-router.get('/attractions/:id', controllerWrapper (attractionController.getOneAttractionById));
+router.get('/attraction/:id', controllerWrapper (attractionController.getOneAttractionById));
 router.get('/categories/:categoryId', controllerWrapper (attractionController.getAttractionsByCategory));
 router.get('/categories', controllerWrapper (categoryController.getAllCategories));
 router.get('/tickets', controllerWrapper(ticketController.getAllTickets));
-router.get('review/:id',controllerWrapper(reviewController.getReviewsByAttractionId));
+router.get('/review/:id',controllerWrapper(reviewController.getReviewsByAttractionId));
 export default router;

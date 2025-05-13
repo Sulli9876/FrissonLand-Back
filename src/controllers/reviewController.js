@@ -26,10 +26,18 @@ const reviewController = {
     },
 
     async getReviewsByAttractionId  (req, res)  {
-        const { attractionId } = req.params;
-        const reviews = await Review.findAll({ where: { attractionId } });
-        res.json(reviews);
-    },
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ error: "Missing attraction id in params" });
+        }
+
+        const reviews = await Review.findAll({
+            where: { attraction_id: id }
+        });
+
+        res.json({ reviews });
+    },  
 
     async getUserReviews (req, res) {
         const { userId } = req.params;
