@@ -22,17 +22,17 @@ INSERT INTO "ticket" ("id", "value", "name") VALUES
   (2, 50,'Ticket adulte');
   
 
-INSERT INTO "user" ("id", "mail", "first_name", "last_name", "birth_date", "address", "password", "role" ) VALUES
-(1, 'admin1@example.com', 'John', 'Doe', '1985-06-15', '123 Elm Street, Springfield, IL', 'password123', 'admin'),
-(2, 'admin2@example.com', 'Jane', 'Doe', '1990-08-22', '456 Maple Avenue, Springfield, IL', 'password456', 'admin'),
-(3, 'admin3@example.com', 'Alice', 'Smith', '2015-12-05', '789 Oak Lane, Springfield, IL', 'password789', 'admin'),
-(4, 'admin4@example.com', 'Bob', 'Jones', '1978-11-30', '101 Pine Street, Springfield, IL', 'password1011', 'admin'),
-(5, 'carol.white5@example.com', 'Carol', 'White', '1989-04-18', '202 Cedar Drive, Springfield, IL', 'password345', 'user'),
-(6, 'dave.black6@example.com', 'Dave', 'Black', '2016-07-12', '303 Birch Road, Springfield, IL', 'password678', 'user'),
-(7, 'eve.green7@example.com', 'Eve', 'Green', '1987-02-25', '404 Walnut Circle, Springfield, IL', 'password901', 'user'),
-(8, 'frank.miller8@example.com', 'Frank', 'Miller', '1991-09-10', '505 Ash Boulevard, Springfield, IL', 'password234', 'user'),
-(9, 'grace.taylor9@example.com', 'Grace', 'Taylor', '1983-03-17', '606 Cherry Street, Springfield, IL', 'password567', 'user'),
-(10, 'hank.moore10@example.com', 'Hank', 'Moore', '1980-10-30', '707 Spruce Way, Springfield, IL', 'password890', 'user');
+INSERT INTO "user" ("id", "mail", "first_name", "last_name", "password", "role" ) VALUES
+(1, 'admin1@example.com', 'John', 'Doe', 'password123', 'admin'),
+(2, 'admin2@example.com', 'Jane', 'Doe', 'password456', 'admin'),
+(3, 'admin3@example.com', 'Alice', 'Smith', 'password789', 'admin'),
+(4, 'admin4@example.com', 'Bob', 'Jones',  'password1011', 'admin'),
+(5, 'carol.white5@example.com', 'Carol', 'White','password345', 'user'),
+(6, 'dave.black6@example.com', 'Dave', 'Black', 'password678', 'user'),
+(7, 'eve.green7@example.com', 'Eve', 'Green', 'password901', 'user'),
+(8, 'frank.miller8@example.com', 'Frank', 'Miller','password234', 'user'),
+(9, 'grace.taylor9@example.com', 'Grace', 'Taylor', 'password567', 'user'),
+(10, 'hank.moore10@example.com', 'Hank', 'Moore', 'password890', 'user');
 
 
 INSERT INTO "review" ("note", "commentaire", "user_id", "attraction_id") VALUES

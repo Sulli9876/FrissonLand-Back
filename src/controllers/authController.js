@@ -24,9 +24,9 @@ const authController = {
 
 // Enregistrement d'un nouvel utilisateur
  async registerUser(req, res) {
-  const { first_name, last_name, mail, password, birth_date, address } = req.body;
+  const { first_name, last_name, mail, password } = req.body;
 
-  if (!first_name || !last_name || !mail || !password || !birth_date || !address) {
+  if (!first_name || !last_name || !mail || !password ) {
     throw new HTTPError(400, 'All fields are required');
   }
 
@@ -40,8 +40,7 @@ const authController = {
     last_name,
     mail,
     password, // suppose que c’est déjà haché via middleware
-    birth_date: new Date(birth_date),
-    address,
+    
   });
 
   res.status(201).json({
@@ -51,8 +50,7 @@ const authController = {
       first_name: newUser.first_name,
       last_name: newUser.last_name,
       mail: newUser.mail,
-      birth_date: newUser.birth_date,
-      address: newUser.address,
+    
       role: 'user',
     },
   });
@@ -66,7 +64,7 @@ const authController = {
 // Mise à jour du profil
  async updateProfile (req, res){
   const userId = req.params.id;
-  const { first_name, last_name, address, birth_date } = req.body;
+  const { first_name, last_name,  } = req.body;
 
   const user = await User.findByPk(userId);
   if (!user) {
@@ -75,8 +73,7 @@ const authController = {
 
   user.first_name = first_name || user.first_name;
   user.last_name = last_name || user.last_name;
-  user.address = address || user.address;
-  user.birth_date = birth_date ? new Date(birth_date) : user.birth_date;
+ 
 
   await user.save();
 
@@ -87,8 +84,7 @@ const authController = {
       mail: user.mail,
       first_name: user.first_name,
       last_name: user.last_name,
-      address: user.address,
-      birth_date: user.birth_date,
+      
     },
   });
 },

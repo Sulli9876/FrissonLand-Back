@@ -23,14 +23,6 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  birth_date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   password: {
     type: DataTypes.STRING,
     allowNull: false,

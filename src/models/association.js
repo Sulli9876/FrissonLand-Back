@@ -33,13 +33,13 @@ import { Review } from "./review.js";
     // Relation entre Review et User
     Review.belongsTo(User, {
       as: "user",
-      foreignKey: 'userId'
+      foreignKey: 'user_id'
     });
 
     //Relation entre Review et Attraction
     Review.belongsTo(Attraction, {
       as: "attraction",
-      foreignKey: 'attractionId'
+      foreignKey: 'attraction_id'
     });
 
   export {
@@ -48,5 +48,6 @@ import { Review } from "./review.js";
     Ticket,
     Book,
     Attraction,
-    Category
+    Category,
+    Review
   };

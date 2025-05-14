@@ -35,10 +35,10 @@ const userController = {
 
     async updateUser(req, res) {
         const { id } = req.params;
-        const { first_name, last_name, birth_date, address } = req.body; // On récupère les champs modifiables
+        const { first_name, last_name,  } = req.body; // On récupère les champs modifiables
 
         const [updated] = await User.update(
-            { first_name, last_name, birth_date, address }, // Les champs à mettre à jour
+            { first_name, last_name,  }, // Les champs à mettre à jour
             { where: { id } }
         );
 

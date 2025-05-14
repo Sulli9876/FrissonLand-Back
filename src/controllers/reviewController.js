@@ -25,19 +25,44 @@ const reviewController = {
         res.json(review);
     },
 
-    async getReviewsByAttractionId  (req, res)  {
-        const { id } = req.params;
-
-        if (!id) {
-            return res.status(400).json({ error: "Missing attraction id in params" });
-        }
-
-        const reviews = await Review.findAll({
-            where: { attraction_id: id }
-        });
-
-        res.json({ reviews });
-    },  
+    async getReviewsByAttractionId(req, res) {
+        try {
+            const reviews = await Review.findAll({
+              where: { attraction_id: req.params.id },
+              include: [
+                {
+                  model: User,
+                  as : 'user',
+                  attributes: ['id', 'first_name', 'last_name'],
+                },
+                {
+                  model: Attraction,
+                  as: 'attraction', 
+                  attributes: ['id', 'name', 'description'],
+                },
+              ],
+              order: [['createdAt', 'DESC']],
+            });
+        
+            // Vérification de la date avant d'appeler toISOString
+            const formattedReviews = reviews.map((review) => {
+              const reviewDate = review.createdAt;
+              const formattedDate = reviewDate ? reviewDate.toISOString() : 'Date non disponible';
+              
+              return {
+                ...review.dataValues,
+                createdAt: formattedDate,
+              };
+            });
+        
+            res.status(200).json({ reviews: formattedReviews });
+          } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Erreur lors de la récupération des avis' });
+          }
+        },
+    
+    
 
     async getUserReviews (req, res) {
         const { userId } = req.params;
