@@ -4,6 +4,9 @@ import bcrypt from 'bcrypt';
 const validateLogin = async (req, res, next) => {
   const { mail, password } = req.body;
   try {
+    if (!user || !user.password) {
+      throw new HTTPError(401, "Identifiants invalides ou connexion Google requise");
+    }
     const user = await User.findOne({ where: { mail } });
     if (!user) {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });

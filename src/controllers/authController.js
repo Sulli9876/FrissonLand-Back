@@ -1,6 +1,7 @@
 import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import HTTPError from '../errors/httpError.js';
+import { OAuth2Client } from 'google-auth-library';
 // Connexion de l'utilisateur
 
 const authController = {
@@ -46,7 +47,7 @@ const authController = {
   res.status(201).json({
     message: 'User successfully registered',
     user: {
-      id: newUser._id,
+      id: newUser.id,
       first_name: newUser.first_name,
       last_name: newUser.last_name,
       mail: newUser.mail,
@@ -55,6 +56,53 @@ const authController = {
     },
   });
 },
+async loginGoogleUser(req, res) {
+  const {token} =req.body;
+  const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+  if (!token) return res.status(400).json({ message: 'Token manquant' });
+  try {
+    // Vérifie le token Google
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    // Extraire les infos
+    const { email, given_name, family_name, picture } = payload;
+
+    // Vérifie si l'utilisateur existe déjà
+    let user = await User.findOne({ where: { mail: email } });
+
+    // Sinon, crée-le
+    if (!user) {
+      user = await User.create({
+        first_name: given_name,
+        last_name: family_name,
+        mail : email,
+        password: null, // ou "google-auth" si tu veux marquer l'origine
+        role: 'user'
+      });
+    }
+
+    // Crée ton propre JWT pour la session
+    const tokenJWT = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({ token: tokenJWT, user });
+  } catch (error) {
+    console.error('Erreur Google login:', error);
+    res.status(401).json({ message: 'Authentification Google échouée' });
+  }
+},
+
+
+
+
 
 // Déconnexion
  async logoutUser (req, res) {

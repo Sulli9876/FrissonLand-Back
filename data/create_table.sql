@@ -35,7 +35,7 @@ CREATE TABLE "user" (
   "mail" VARCHAR(128) UNIQUE NOT NULL,
   "first_name" VARCHAR(64) NOT NULL,
   "last_name" VARCHAR(64) NOT NULL,
-  "password" VARCHAR(128) NOT NULL,
+  "password" VARCHAR(128) ,
   "role" VARCHAR(64) NOT NULL DEFAULT 'user',
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
   "updated_at" TIMESTAMPTZ DEFAULT now()

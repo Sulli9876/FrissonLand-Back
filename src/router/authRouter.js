@@ -14,6 +14,7 @@ import reviewController from '../controllers/reviewController.js';
 
 const authRouter = Router();
 authRouter.post('/login', validateLogin , controllerWrapper(authController.loginUser));
+authRouter.post('/loginGoogle', controllerWrapper(authController.loginGoogleUser));
 authRouter.post('/register', hashPassword, controllerWrapper(authController.registerUser));
 authRouter.post('/logout', verifyToken, controllerWrapper(authController.logoutUser));
 authRouter.post('/reserve', verifyToken, controllerWrapper(reservationController.reserveTickets));
