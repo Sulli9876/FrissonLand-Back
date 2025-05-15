@@ -5,8 +5,8 @@ import HTTPError from "../errors/httpError.js";
 
 const reviewController = {
     async createReview(req, res) {
-        const { note, commentaire } = req.body;
-        const { userId, attractionId } = req.params;
+        const { note, commentaire  , attractionId} = req.body;
+        const userId = req.user.id;
         const existingReview = await Review.findOne({ where: { userId, attractionId } });
         if (existingReview) {
             throw new HTTPError(400, 'Review already exists for this attraction by the same user');
@@ -21,8 +21,16 @@ const reviewController = {
             throw new HTTPError(404, 'Attraction not found');
         }
 
-        const review = await Review.create({ note, commentaire, userId, attractionId });        
-        res.json(review);
+        const review = await Review.create({ note, commentaire, userId, attractionId });
+
+          // Ajoute les infos de l'utilisateur à l'objet review retourné
+          review.dataValues.user = {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name
+          };
+
+          res.json(review);
     },
 
     async getReviewsByAttractionId(req, res) {
@@ -52,6 +60,7 @@ const reviewController = {
               return {
                 ...review.dataValues,
                 createdAt: formattedDate,
+                
               };
             });
         
@@ -63,11 +72,22 @@ const reviewController = {
         },
     
     
-
+        
     async getUserReviews (req, res) {
-        const { userId } = req.params;
-        const reviews = await Review.findAll({ where: { userId } });
-        res.json(reviews);
+      const userId = parseInt(req.params.id);
+      if (!userId) return res.status(400).json({ error: 'ID utilisateur manquant' });
+      const reviews = await Review.findAll({
+        where: { user_id: userId },
+        include: [
+          {
+            model: Attraction,
+            as: 'attraction', // ⬅️ AJOUT OBLIGATOIRE de l'alias défini dans les associations
+            attributes: ['name']
+          }
+        ]
+      });
+  
+      res.json(reviews)
     },
 
     async deleteReview (req, res) {

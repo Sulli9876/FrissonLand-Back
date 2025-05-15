@@ -17,9 +17,10 @@ authRouter.post('/login', validateLogin , controllerWrapper(authController.login
 authRouter.post('/loginGoogle', controllerWrapper(authController.loginGoogleUser));
 authRouter.post('/register', hashPassword, controllerWrapper(authController.registerUser));
 authRouter.post('/logout', verifyToken, controllerWrapper(authController.logoutUser));
-authRouter.post('/reserve', verifyToken, controllerWrapper(reservationController.reserveTickets));
+authRouter.post('/reserve', verifyToken, controllerWrapper(reservationController.reserveTickets))
+;
 
-authRouter.put('/updateProfile/:id',verifyToken,  controllerWrapper(authController.updateProfile));
+authRouter.put('/profile/:id',verifyToken,  controllerWrapper(authController.updateProfile));
 
 authRouter.get('/profile/:id',verifyToken,  controllerWrapper(userController.getOneUser));
 authRouter.get('/profile/:id/tickets', verifyToken, controllerWrapper(userController.getUserTickets));

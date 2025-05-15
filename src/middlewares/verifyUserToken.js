@@ -17,11 +17,7 @@ const verifyToken = (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
 
-        // Vérification si l'utilisateur tente d'accéder à ses propres données (par exemple, son profil)
-        if (req.user.id !== parseInt(req.params.id, 10)) {
-            return res.status(403).json({ message: 'Vous n\'avez pas la permission d\'accéder à ce profil' });
-        }
-
+        
         next();
     } catch (error) {
         console.error('Erreur de vérification du token:', error.message);

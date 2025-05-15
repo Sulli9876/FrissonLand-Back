@@ -22,20 +22,51 @@ const reservationController = {
 
     async getUserBook(req, res) {
         const { id } = req.user;
-        const reservations = await Book.findAll({
-            where: { user_id: id },
-            include: [{
-                model: Ticket,
-                attributes: ['name', 'value']
-            }]
+      
+        const books = await Book.findAll({
+          where: { userId: id },
+          include: [{
+            model: Ticket,
+            as: 'ticket',
+            attributes: ['id', 'name', 'value']
+          }],
+          order: [['reservation_number', 'ASC']],
         });
-
-        if (!reservations || reservations.length === 0) {
-            throw new HTTPError(404, 'No reservations found for this user');
+      
+        if (!books || books.length === 0) {
+          throw new HTTPError(404, 'No reservations found for this user');
         }
-
-        res.status(200).json({ reservations });
-    },
+      
+        const groupedReservations = {};
+        for (const book of books) {
+          const reservationNumber = book.reservation_number;
+      
+          if (!groupedReservations[reservationNumber]) {
+            groupedReservations[reservationNumber] = {
+              reservation_number: reservationNumber,
+              visit_date: book.visit_date,
+              bookings: [],
+            };
+          }
+      
+          groupedReservations[reservationNumber].bookings.push({
+            id: book.id,
+            ticketId: book.ticketId,
+            quantity: book.quantity,
+            visit_date: book.visit_date,
+            ticket: {
+              id: book.ticket.id,
+              name: book.ticket.name,
+              value: book.ticket.value,
+            }
+          });
+        }
+      
+        res.status(200).json({
+          reservations: Object.values(groupedReservations)
+        });
+      },
+      
 
     async getBookById(req, res) {
         const { id } = req.params;
@@ -94,8 +125,8 @@ const reservationController = {
                 await Book.create({
                     visit_date: visitDate,
                     quantity: count,
-                    ticket_id: ticket.id,
-                    user_id: userId,
+                    ticketId: ticket.id,
+                    userId: userId,
                     reservation_number: reservationNumber,
                 });
             }

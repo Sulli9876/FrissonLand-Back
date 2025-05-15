@@ -7,17 +7,13 @@ import { Book } from "./book.js";
 import { Review } from "./review.js";
 
 // Relations entre User et Ticket via Book
-    User.belongsToMany(Ticket, {
-      through: Book,
-      foreignKey: 'user_id', 
-      as: 'tickets',          
-    });
+  // Book appartient à un Ticket via ticket_id
+    Book.belongsTo(Ticket, 
+      { foreignKey: 'ticket_id', as: 'ticket' });
 
-    Ticket.belongsToMany(User, {
-      through: Book,
-      foreignKey: 'ticket_id', 
-      as: 'users',             
-    });
+// Book appartient à un User via user_id
+    Book.belongsTo(User, 
+      { foreignKey: 'user_id', as: 'user' });
 
 // Relation entre Category et Attraction
     Category.hasMany(Attraction, {
