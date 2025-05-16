@@ -19,7 +19,7 @@ CREATE TABLE "attraction" (
   "category_id" INT NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
   "updated_at" TIMESTAMPTZ DEFAULT now(),
-  FOREIGN KEY ("category_id") REFERENCES "category" ("id") ON DELETE CASCADE
+  FOREIGN KEY ("category_id") REFERENCES "category" ("id") ON DELETE RESTRICT
 );
 
 CREATE TABLE "ticket" (

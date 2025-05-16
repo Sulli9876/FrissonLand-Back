@@ -5,15 +5,22 @@ INSERT INTO "category" ("id", "name") VALUES
   (3, 'Attraction pendulaire');
 
 INSERT INTO "attraction" ("id", "name", "description", "image", "duration", "category_id") VALUES
-(1, 'Romero Coaster', 'Inspiré par les films de George A. Romero, ce coaster plonge les visiteurs dans un univers de zombies.', '/images/attractions/romero_coaster.webp', '00:15:00', 1),
-(2, 'Dead Space Mountain', 'Ce coaster intérieur recrée une ambiance oppressante du jeu vidéo Dead Space.', 'images/attractions/dead_space.webp','00:10:30', 1),
-(3, 'Dernier Train pour Paris', 'Ce roller coaster à grande vitesse inspiré du film Dernier train pour Busan.', 'images/attractions/last_train.webp','00:05:45', 1),
-(4, 'Evil Brain', 'Plongée dans un univers sombre du film Evil Dead, cette maison hantée emmène les visiteurs dans une forêt sinistre, à travers des cabanes abandonnées où des esprits maléfiques rôdent.', '/images/attractions/evil_brain.webp','00:45:00', 2),
-(5, 'Scum World', 'Basée sur le jeu vidéo Scum, cette maison hantée recrée un monde post-apocalyptique où les criminels et les mutants règnent en maîtres.', '/images/attractions/scum_world.webp','00:30:00', 2),
-(6, 'La Colline Silencieuse à des Yeux', 'Cette attraction combine une atmosphère de Silent Hill avec les créatures effrayantes et les brumes épaisses caractéristiques du jeu.', '/images/attractions/the_hill.webp','00:15:00', 2),
-(7, 'Le Kamikaze Zombie', 'Attraction à sensations fortes où les visiteurs sont projetés dans toutes les directions, simulant une évasion désespérée face à une horde de zombies.', '/images/attractions/kamikaze_zombie.webp','00:11:00', 3),
-(8, 'Le Bateau de Davis John', 'Inspirée de des Pirates des Caraïbes, cette attraction aquatique embarque les visiteurs sur un bateau de pirates zombies.', '/images/attractions/davis_boat.webp','00:16:00', 3),
-(9, 'La Roue du Destin', 'Cette grande roue offre une vue panoramique du parc, mais chaque cabine propose une ambiance différente.', '/images/attractions/the_wheel.webp','00:2:00', 3);
+(1, 'Romero Coaster', 'Inspiré par les films de George A. Romero, ce coaster plonge les visiteurs dans un univers de zombies.', 'https://i.ibb.co/35Tj6yR2/romero-coaster.webp', '00:15:00', 1),
+(2, 'Dead Space Mountain', 'Ce coaster intérieur recrée une ambiance oppressante du jeu vidéo Dead Space.', 'https://i.ibb.co/1YjLxC3q/dead-space.webp','00:10:30', 1),
+(3, 'Dernier Train pour Paris', 'Ce roller coaster à grande vitesse inspiré du film Dernier train pour Busan.', 'https://i.ibb.co/yBhHp7qt/last-train.webp','00:05:45', 1),
+(4, 'Evil Brain', 'Plongée dans un univers sombre du film Evil Dead, cette maison hantée emmène les visiteurs dans une forêt sinistre, à travers des cabanes abandonnées où des esprits maléfiques rôdent.', 'https://i.ibb.co/yFVGbV0f/evil-brain.webp','00:45:00', 2),
+(5, 'Scum World', 'Basée sur le jeu vidéo Scum, cette maison hantée recrée un monde post-apocalyptique où les criminels et les mutants règnent en maîtres.', 'https://i.ibb.co/VcYXs0n9/scum-world.webp','00:30:00', 2),
+(6, 'La Colline Silencieuse à des Yeux', 'Cette attraction combine une atmosphère de Silent Hill avec les créatures effrayantes et les brumes épaisses caractéristiques du jeu.', 'https://i.ibb.co/cX2Stpxh/the-hill.webp','00:15:00', 2),
+(7, 'Le Kamikaze Zombie', 'Attraction à sensations fortes où les visiteurs sont projetés dans toutes les directions, simulant une évasion désespérée face à une horde de zombies.', 'https://i.ibb.co/27KwLTcD/kamikaze-zombie.webp','00:11:00', 3),
+(8, 'Le Bateau de Davis John', 'Inspirée de des Pirates des Caraïbes, cette attraction aquatique embarque les visiteurs sur un bateau de pirates zombies.', 'https://i.ibb.co/qLsQxNn8/Chat-GPT-Image-16-mai-2025-20-13-27.png','00:16:00', 3),
+(9, 'La Roue du Destin', 'Cette grande roue offre une vue panoramique du parc, mais chaque cabine propose une ambiance différente.', 'https://i.ibb.co/pjHHfzXC/the-wheel.webp','00:2:00', 3);
+
+
+
+
+
+
+
 
  
 

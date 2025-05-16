@@ -92,7 +92,7 @@ async loginGoogleUser(req, res) {
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
-
+    console.log('Token JWT:', tokenJWT);
     res.json({ token: tokenJWT, user });
   } catch (error) {
     console.error('Erreur Google login:', error);

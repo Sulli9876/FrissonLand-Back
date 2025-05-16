@@ -5,7 +5,7 @@ const categoryController = {
   // Récupérer toutes les catégories
   async getAllCategories(req, res) {
     const categories = await Category.findAll({
-      attributes: ['name'],
+      attributes: ['id' , 'name'],
     });
     res.json({ categories });
   },
