@@ -6,6 +6,7 @@ import categoryController from "../controllers/categoryController.js";
 import ticketController from "../controllers/ticketController.js";
 import userController from "../controllers/userController.js";
 import reservationController from "../controllers/reservationController.js";
+import reviewController from "../controllers/reviewController.js";
 
 
 
@@ -39,7 +40,9 @@ adminRouter.delete('/users/:id', verifyAdminToken, controllerWrapper(userControl
 adminRouter.get('/reservations', verifyAdminToken, controllerWrapper(reservationController.getAllBook));
 adminRouter.get('/reservations/:id', verifyAdminToken, controllerWrapper(reservationController.getBookById));
 adminRouter.post('/reservations', verifyAdminToken, controllerWrapper(reservationController.reserveTickets));
-adminRouter.put('/reservations/:id', verifyAdminToken, controllerWrapper(reservationController.updateBook));
-adminRouter.delete('/reservations/:id', verifyAdminToken, controllerWrapper(reservationController.deleteBook));
+adminRouter.delete('/reservations/:reservationNumber', verifyAdminToken, controllerWrapper(reservationController.deleteBook));
+
+adminRouter.get('/reviews', verifyAdminToken, controllerWrapper(reviewController.getAllReviews));
+
 
 export default adminRouter;

@@ -4,6 +4,26 @@ import Attraction from "../models/attraction.js";
 import HTTPError from "../errors/httpError.js";
 
 const reviewController = {
+  async getAllReviews(req, res) {
+    const reviews = await Review.findAll(
+      {
+        include: [
+          {
+            model: User,
+            as : 'user',
+            attributes: ['id', 'first_name', 'last_name'],
+          },
+          {
+            model: Attraction,
+            as: 'attraction', 
+            attributes: ['id', 'name', 'description'],
+          },
+        ],
+        order: [['createdAt', 'DESC']],
+      }
+    );
+    res.json(reviews);
+  },
     async createReview(req, res) {
         const { note, commentaire  , attractionId} = req.body;
         const userId = req.user.id;

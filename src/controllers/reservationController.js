@@ -13,7 +13,12 @@ const reservationController = {
         const books = await Book.findAll({
             attributes: ['id', 'reservation_number', 'visit_date', 'quantity', 'ticket_id', 'user_id', 'created_at', 'updated_at'],
             include: [{
+                model: User,
+                as: 'user',
+                attributes: ['first_name', 'last_name']
+            }, {
                 model: Ticket,
+                as: 'ticket',
                 attributes: ['name', 'value']
             }]
         });
@@ -94,22 +99,6 @@ const reservationController = {
         res.status(200).json({ message: 'Reservation deleted successfully' });
     },
 
-    async updateBook(req, res) {
-        const { id } = req.params;
-        const { quantity, visit_date } = req.body;
-
-        const [updated] = await Book.update(
-            { quantity, visit_date },
-            { where: { id } }
-        );
-
-        if (!updated) {
-            throw new HTTPError(404, 'Book not found');
-        }
-
-        const updatedBook = await Book.findByPk(id);
-        res.json(updatedBook);
-    },
 
     async reserveTickets(req, res) {
         const userId = req.user.id;
