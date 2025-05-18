@@ -184,7 +184,7 @@ async forgotPassword(req, res) {
       user.resetTokenExpiry = expiry;
       await user.save();
 
-      const resetLink = `http://localhost:5173/reset-password/${token}`;
+      const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
       await sendResetPasswordEmail(user.mail, resetLink, user.first_name || 'utilisateur');
     }

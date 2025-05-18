@@ -1,14 +1,21 @@
+import { Sequelize } from 'sequelize';
 
-import { Sequelize } from "sequelize";
+// On récupère l'URL depuis les variables d'environnement
+const databaseURL = process.env.DATABASE_URL;
 
-const { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } = process.env;
-
-const databaseURL = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`;
-
-export  const sequelize = new Sequelize(databaseURL, {
+export const sequelize = new Sequelize(databaseURL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Important pour Render
+    },
+  },
   define: {
     underscored: true,
   },
+  logging: false, // tu peux mettre true si tu veux voir les logs SQL
 });
 
-export default sequelize
+export default sequelize;
