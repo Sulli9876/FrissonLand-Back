@@ -1,8 +1,41 @@
 import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import HTTPError from '../errors/httpError.js';
+import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
 import { OAuth2Client } from 'google-auth-library';
+import { Op } from 'sequelize';
+import crypto from 'crypto';
+
 // Connexion de l'utilisateur
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT || 587,
+  secure: false,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
+// Fonction pour envoyer email reset password
+async function sendResetPasswordEmail(toEmail, resetLink, userName) {
+  const mailOptions = {
+    from: `"FrissonLand Support" <${process.env.MAIL_USER}>`,
+    to: toEmail,
+    subject: 'Réinitialisation de votre mot de passe',
+    html: `
+      <p>Bonjour ${userName},</p>
+      <p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien ci-dessous pour définir un nouveau mot de passe :</p>
+      <a href="${resetLink}">Réinitialiser mon mot de passe</a>
+      <p>Si vous n'avez pas demandé cette réinitialisation, ignorez ce mail.</p>
+      <br />
+      <p>Cordialement,<br />L'équipe FrissonLand</p>
+    `,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
 
 const authController = {
  async loginUser  (req, res)  {
@@ -135,6 +168,62 @@ async loginGoogleUser(req, res) {
       
     },
   });
+},
+
+async forgotPassword(req, res) {
+  const { mail } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { mail } });
+
+    if (user) {
+      const token = crypto.randomBytes(32).toString('hex');
+      const expiry = Date.now() + 3600000; // 1h
+
+      user.resetToken = token;
+      user.resetTokenExpiry = expiry;
+      await user.save();
+
+      const resetLink = `http://localhost:5173/reset-password/${token}`;
+
+      await sendResetPasswordEmail(user.mail, resetLink, user.first_name || 'utilisateur');
+    }
+
+    // Toujours renvoyer ce message pour ne pas révéler si mail existe ou non
+    res.json({ message: 'Si un compte existe, un email a été envoyé.' });
+  } catch (err) {
+    console.error('Erreur forgotPassword:', err);
+    res.status(500).json({ message: 'Erreur serveur.' });
+  }
+},
+
+async resetPassword(req, res) {
+  const { token, newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        resetToken: token,
+        resetTokenExpiry: { [Op.gt]: Date.now() },
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Lien invalide ou expiré.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
+    await user.save();
+
+    res.json({ message: 'Mot de passe réinitialisé avec succès.' });
+  } catch (err) {
+    console.error('Erreur resetPassword:', err);
+    res.status(500).json({ message: 'Erreur serveur.' });
+  }
 },
 
 };

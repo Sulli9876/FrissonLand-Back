@@ -32,6 +32,14 @@ User.init({
     allowNull: false,
     defaultValue: 'user'
   },
+  resetToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  resetTokenExpiry: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 }, {
   sequelize,
   tableName: "user",
