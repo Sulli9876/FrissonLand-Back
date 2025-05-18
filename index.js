@@ -26,10 +26,6 @@ app.use("/admin", adminRouter);
 // Servir les fichiers statiques du front build
 app.use(express.static(path.join(process.cwd(), 'dist')));
 
-// toutes les routes non API -> index.html (SPA)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
-});
 
 app.use(errorHandler);
 
